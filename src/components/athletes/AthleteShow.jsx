@@ -41,9 +41,9 @@ const AthleteShow = (props) => {
 
     return (
         <>
-            <Container className="m-2">
+            <Container className="m-4">
                 <Card key={athlete._id}>
-                    <Card.Header>
+                    <Card.Header className='bg-info bg-opacity-25'>
                         { athlete.fullTitle }  <SportIcon sport={ athlete.sport } />
                     </Card.Header>
                     <Card.Body>

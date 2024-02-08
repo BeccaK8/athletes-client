@@ -1,5 +1,5 @@
 // import React, { Component, Fragment } from 'react'
-import React, { useState, Fragment } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 
@@ -13,6 +13,7 @@ import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 import AthleteShow from './components/athletes/AthleteShow'
+import AthleteCreate from './components/athletes/AthleteCreate'
 
 const App = () => {
 
@@ -21,8 +22,17 @@ const App = () => {
 
 	console.log('user in app', user)
 	console.log('message alerts', msgAlerts)
+
+	useEffect(() => {
+		const loggedInUser = localStorage.getItem('user')
+		if (loggedInUser) {
+			const foundUser = JSON.parse(loggedInUser)
+			setUser(foundUser)
+		}
+	}, [])
+
 	const clearUser = () => {
-		console.log('clear user ran')
+		localStorage.removeItem('user')
 		setUser(null)
 	}
 
@@ -68,6 +78,14 @@ const App = () => {
 						<RequireAuth user={user}>
 						<ChangePassword msgAlert={msgAlert} user={user} />
 						</RequireAuth>}
+				/>
+				<Route
+					path='/create-athlete'
+					element={
+						<RequireAuth user={user} >
+							<AthleteCreate user={user} msgAlert={msgAlert} />
+						</RequireAuth>
+					}
 				/>
 				<Route 
 					path='/athletes/:athleteId'

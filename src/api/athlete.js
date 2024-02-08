@@ -12,6 +12,16 @@ export const getOneAthlete = (id) => {
 }
 
 // CREATE -> Add an athlete
+export const createAthlete = (user, newAthlete) => {
+    return axios({
+        url: `${apiUrl}/athletes`,
+        method: 'POST',
+        headers: {
+            Authorization: `Token token=${user.token}`
+        },
+        data: { athlete: newAthlete }
+    })
+}
 
 // UPDATE -> Update an athlete
 
