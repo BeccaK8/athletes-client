@@ -7,6 +7,9 @@ export const getAllAthletes = () => {
 }
 
 // READ -> Show
+export const getOneAthlete = (id) => {
+    return axios(`${apiUrl}/athletes/${id}`)
+}
 
 // CREATE -> Add an athlete
 

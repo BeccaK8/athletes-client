@@ -43,7 +43,6 @@ const AthleteIndex = (props) => {
         return <p>No athletes have been loaded yet. Go ahead and add some!</p>
     } else {
         const athleteCards = athletes.map(ath => {
-            const bgColorClass = ath.sport.toLowerCase()
             return (
                 <Card key={ ath._id } style={{ width: '30%', margin: 5 }} >
                     <Card.Header className='bg-info bg-opacity-25'>
@@ -51,8 +50,12 @@ const AthleteIndex = (props) => {
                     </Card.Header>
                     <Card.Body>
                         { ath.status } { ath.active ? `for the ${ath.currentTeam}` : null }
-                        
                     </Card.Body>
+                    <Card.Footer style={{textAlign: 'center'}}>
+                        <Link to={`/athletes/${ ath._id}`} className='btn btn-secondary' >
+                            Learn more...
+                        </Link>
+                    </Card.Footer>
                 </Card>
             )
         })
