@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Card, Container, Button } from 'react-bootstrap'
 
-import { getOneAthlete } from '../../api/athlete'
+import { getOneAthlete, removeAthlete } from '../../api/athlete'
 import messages from '../shared/AutoDismissAlert/messages'
 import LoadingScreen from '../shared/LoadingScreen'
 import SportIcon from '../shared/SportIcon'
@@ -34,6 +34,25 @@ const AthleteShow = (props) => {
             })
     }, [updated])
 
+    const deleteAthlete = () => {
+        removeAthlete(user, athlete._id)
+            .then(() => {
+                msgAlert({
+                    heading: 'Done!',
+                    message: messages.deleteAthleteSuccess,
+                    variant: 'success'
+                })
+            })
+            .then(() => navigate('/'))
+            .catch(err => {
+                msgAlert({
+                    heading: 'On no!',
+                    message: messages.generalError,
+                    variant: 'danger'
+                })
+            })
+    }
+
     // if we don't have a pet, show LoadingScreen
     if (!athlete) {
         return <LoadingScreen />
@@ -59,9 +78,9 @@ const AthleteShow = (props) => {
                             }
                         </Card.Text>
                     </Card.Body>
-                    <Card.Footer>
+                    <Card.Footer style={{textAlign: 'center'}}>
                         {
-                            athlete.owner && user && athlete.owner._id === user._id
+                            athlete.owner && user && athlete.owner === user._id
                             ?
                             <>
                                 <Button
@@ -73,6 +92,7 @@ const AthleteShow = (props) => {
                                 <Button 
                                     className="m-2"
                                     variant="danger"
+                                    onClick={() => deleteAthlete()}
                                 >
                                     Remove Athlete
                                 </Button>

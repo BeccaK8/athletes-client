@@ -26,3 +26,12 @@ export const createAthlete = (user, newAthlete) => {
 // UPDATE -> Update an athlete
 
 // DELETE -> Remove an athlete
+export const removeAthlete = (user, id) => {
+    return axios({
+        url: `${apiUrl}/athletes/${id}`,
+        method: 'DELETE',
+        headers: {
+            Authorization: `Token token=${user.token}`
+        }
+    })
+}
