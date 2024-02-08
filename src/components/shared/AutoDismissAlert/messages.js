@@ -6,6 +6,10 @@ const messages = {
 	signOutSuccess: 'Come back soon!',
 	changePasswordSuccess: 'Password changed successfully!',
 	changePasswordFailure:'Failed to change passwords. Check your old password and try again.',
+	createAthleteSuccess: 'That athlete has been added',
+	updateAthleteSuccess: 'That athlete has been updated',
+	deleteAthleteSuccess: 'That athlete has been removed',
+	generalError: 'An error has occurred',
 }
 
 module.exports = messages

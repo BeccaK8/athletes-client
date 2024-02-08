@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { getAllAthletes } from '../../api/athlete'
 import LoadingScreen from '../shared/LoadingScreen'
+import SportIcon from '../shared/SportIcon'
 import messages from '../shared/AutoDismissAlert/messages'
 
 const cardContainerLayout = {
@@ -41,21 +42,26 @@ const AthleteIndex = (props) => {
     } else if (athletes.length === 0) {
         return <p>No athletes have been loaded yet. Go ahead and add some!</p>
     } else {
-        const athleteCards = athletes.map(ath => (
-            <Card key={ ath._id } style={{ width: '30%', margin: 5 }} >
-                <Card.Header>{ ath.fullTitle }</Card.Header>
-                <Card.Body>
-                    { ath.status }
-                </Card.Body>
-            </Card>
-        ))
+        const athleteCards = athletes.map(ath => {
+            const bgColorClass = ath.sport.toLowerCase()
+            return (
+                <Card key={ ath._id } style={{ width: '30%', margin: 5 }} >
+                    <Card.Header className='bg-info bg-opacity-25'>
+                        { ath.fullTitle }  <SportIcon sport={ath.sport} />
+                    </Card.Header>
+                    <Card.Body>
+                        { ath.status } { ath.active ? `for the ${ath.currentTeam}` : null }
+                        
+                    </Card.Body>
+                </Card>
+            )
+        })
         return (
             <div className="container-md" style={cardContainerLayout} >
                 { athleteCards }
             </div>
         )
     }
-
 }
 
 export default AthleteIndex
