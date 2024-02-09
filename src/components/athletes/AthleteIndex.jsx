@@ -49,7 +49,7 @@ const AthleteIndex = (props) => {
                         { ath.fullTitle }  <SportIcon sport={ath.sport} />
                     </Card.Header>
                     <Card.Body>
-                        { ath.status } { ath.active ? `for the ${ath.currentTeam}` : null }
+                        { ath.status } { ath.active && ath.currentTeam ? `for the ${ath.currentTeam}` : null }
                     </Card.Body>
                     <Card.Footer style={{textAlign: 'center'}}>
                         <Link to={`/athletes/${ ath._id}`} className='btn btn-secondary' >

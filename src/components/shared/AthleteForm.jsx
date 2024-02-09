@@ -46,7 +46,7 @@ const AthleteForm = (props) => {
                         placeholder="Who is their current team, if still playing?"
                         id="currentTeam"
                         name="currentTeam"
-                        value={ athlete.currentTeam }
+                        value={ athlete.currentTeam ? athlete.currentTeam : ''}
                         onChange={handleChange}
                     />
                 </Form.Group>
@@ -57,7 +57,7 @@ const AthleteForm = (props) => {
                         placeholder="What's their jersey number?"
                         id="jerseyNumber"
                         name="jerseyNumber"
-                        value={ athlete.jerseyNumber }
+                        value={ athlete.jerseyNumber ? athlete.jerseyNumber : ''}
                         onChange={handleChange}
                     />
                 </Form.Group>

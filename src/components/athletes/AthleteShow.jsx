@@ -5,8 +5,9 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Card, Container, Button } from 'react-bootstrap'
 
-import { getOneAthlete, removeAthlete } from '../../api/athlete'
+import { getOneAthlete, updateAthlete, removeAthlete } from '../../api/athlete'
 import messages from '../shared/AutoDismissAlert/messages'
+import EditAthleteModal from './EditAthleteModal'
 import LoadingScreen from '../shared/LoadingScreen'
 import SportIcon from '../shared/SportIcon'
 
@@ -15,6 +16,7 @@ const AthleteShow = (props) => {
     const { user, msgAlert } = props
 
     const [athlete, setAthlete] = useState(null)
+    const [editModalShow, setEditModalShow] = useState(false)
 
     // this is a boolean that we can switch between to trigger a page rerender
     const [updated, setUpdated] = useState(false)
@@ -72,9 +74,13 @@ const AthleteShow = (props) => {
                             {
                                 athlete.active
                                 ?
-                                <small>Current Team: { athlete.currentTeam }</small>
+                                    athlete.currentTeam
+                                    ?
+                                    <small>Current Team: { athlete.currentTeam }</small>
+                                    : 
+                                    <small>Still playing</small>
                                 :
-                                <small>No longer playing</small>
+                                    <small>No longer playing</small>
                             }
                         </Card.Text>
                     </Card.Body>
@@ -86,6 +92,7 @@ const AthleteShow = (props) => {
                                 <Button
                                     className="m-2"
                                     variant="warning"
+                                    onClick={() => setEditModalShow(true)}
                                 >
                                     Edit Athlete
                                 </Button>
@@ -103,6 +110,15 @@ const AthleteShow = (props) => {
                     </Card.Footer>
                 </Card>
             </Container>
+            <EditAthleteModal
+                athlete={athlete}
+                user={user}
+                show={editModalShow}
+                updateAthlete={updateAthlete}
+                msgAlert={msgAlert}
+                handleClose={() => setEditModalShow(false)}
+                triggerRefresh={() => setUpdated(prev => !prev)}
+            />
         </>
     )
 }
